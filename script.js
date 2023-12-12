@@ -133,7 +133,7 @@ function hideLoadingIndicator() {
 }
 function openInMaps() {
     if (!endLocation) {
-        alert('Bitte generieren Sie zuerst eine Route.');
+        alert('Kein Zielort festgelegt.');
         return;
     }
 
