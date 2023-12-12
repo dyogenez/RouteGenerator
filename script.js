@@ -53,6 +53,8 @@ function generateRandomRoute() {
 
     const radiusInKm = parseInt(document.getElementById('customRadius').value);
     const randomPoint = getRandomLocation(userLocation, radiusInKm * 1000);
+    document.getElementById('generateRoute').addEventListener('click', generateRandomRoute);
+    document.getElementById('openInGoogleMaps').addEventListener('click', openInMaps);
 
     circle.setRadius(radiusInKm * 1000);
     circle.setCenter(userLocation);
