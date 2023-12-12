@@ -1,11 +1,11 @@
-let map, userLocation, circle, directionsService, directionsRenderer;
+let map, userLocation, circle, directionsService, directionsRenderer, endLocation;
 
 function initMap() {
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
-        center: { lat: -34.397, lng: 150.644 },
+        center: { lat: -34.397, lng: 150.644 }, // Standardzentrum
     });
     directionsRenderer.setMap(map);
 
@@ -20,7 +20,7 @@ function initMap() {
             new google.maps.Marker({
                 position: userLocation,
                 map: map,
-                title: 'Dein Standort'
+                title: 'Ihr Standort'
             });
 
             circle = new google.maps.Circle({
@@ -33,16 +33,12 @@ function initMap() {
                 center: userLocation,
                 radius: parseInt(document.getElementById('radiusSlider').value) * 1000
             });
-        }, function() {
-            handleLocationError(true, map.getCenter());
+        }, function(error) {
+            console.error("Geolocation Error: ", error);
         });
     } else {
-        handleLocationError(false, map.getCenter());
+        console.error("Geolocation is not supported by this browser.");
     }
-}
-
-function handleLocationError(browserHasGeolocation, pos) {
-    // Hier sollte die Fehlerbehandlung für den Standort implementiert werden
 }
 
 function generateRandomRoute() {
@@ -51,31 +47,41 @@ function generateRandomRoute() {
         return;
     }
 
-    const radiusInKm = parseInt(document.getElementById('customRadius').value);
-    const randomPoint = getRandomLocation(userLocation, radiusInKm * 1000);
-
-    circle.setRadius(radiusInKm * 1000);
-    circle.setCenter(userLocation);
+    // Beispielhafte Generierung einer zufälligen Route
+    endLocation = getRandomLocation(userLocation, 5000); // Generiere einen Punkt innerhalb von 5km
 
     directionsService.route({
         origin: userLocation,
-        destination: randomPoint,
+        destination: endLocation,
         travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
         if (status === 'OK') {
             directionsRenderer.setDirections(response);
-            const distance = response.routes[0].legs[0].distance.text;
-            displayDistance(distance);
+            document.getElementById('routeDistance').textContent = 'Entfernung: ' + response.routes[0].legs[0].distance.text;
+            
+            // Aktualisiere den Link zu Google Maps
+            updateGoogleMapsLink(userLocation, endLocation);
         } else {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
         }
     });
 }
 
+function updateGoogleMapsLink(start, end) {
+    const googleMapsLink = generateGoogleMapsLink(start, end);
+    const linkElement = document.getElementById('openInMapsButton');
+    linkElement.href = googleMapsLink;
+    linkElement.style.display = 'block'; // Zeige den Link an
+}
+
+function generateGoogleMapsLink(start, end) {
+    return `https://www.google.com/maps/dir/?api=1&origin=${start.lat},${start.lng}&destination=${end.lat},${end.lng}&travelmode=driving`;
+}
+
 function getRandomLocation(center, radius) {
     const y0 = center.lat;
     const x0 = center.lng;
-    const rd = radius / 111300;
+    const rd = radius / 111300; // Umrechnung in etwa Meter
 
     const u = Math.random();
     const v = Math.random();
@@ -85,52 +91,8 @@ function getRandomLocation(center, radius) {
     const x = w * Math.cos(t);
     const y = w * Math.sin(t);
 
-    return { lat: y + y0, lng: x / Math.cos(y0) + x0 };
+    const newLat = y + y0;
+    const newLng = x / Math.cos(y0) + x0;
+
+    return { lat: newLat, lng: newLng };
 }
-
-function displayDistance(distance) {
-    const distanceElement = document.getElementById('routeDistance');
-    distanceElement.textContent = `Entfernung zum Ziel: ${distance}`;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const slider = document.getElementById('radiusSlider');
-    const customRadiusInput = document.getElementById('customRadius');
-    const radiusValueDisplay = document.getElementById('radiusValue');
-
-    slider.addEventListener('input', function() {
-        updateRadiusValue(this.value);
-    });
-
-    customRadiusInput.addEventListener('input', function() {
-        updateRadiusValue(this.value);
-    });
-
-    document.getElementById('generateRoute').addEventListener('click', generateRandomRoute);
-});
-
-function updateRadiusValue(value) {
-    const radiusInKm = parseInt(value);
-    document.getElementById('radiusValue').textContent = radiusInKm;
-    document.getElementById('customRadius').value = radiusInKm;
-    document.getElementById('radiusSlider').value = radiusInKm;
-    updateCircleRadius(radiusInKm);
-}
-
-function updateCircleRadius(radiusInKm) {
-    if (circle) {
-        circle.setRadius(radiusInKm * 1000);
-    }
-}
-
-function generateGoogleMapsLink(start, end) {
-    return `https://www.google.com/maps/dir/?api=1&origin=${start.lat},${start.lng}&destination=${end.lat},${end.lng}&travelmode=driving`;
-}
-
-// Nachdem die Route generiert wurde
-const start = userLocation; // Ihre Startkoordinaten
-const end = randomPoint; // Zielkoordinaten der generierten Route
-const googleMapsLink = generateGoogleMapsLink(start, end);
-
-// Fügen Sie den Link zu einem Button oder einem anklickbaren Element hinzu
-document.getElementById('openInMapsButton').href = googleMapsLink;
