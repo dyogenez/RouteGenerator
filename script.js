@@ -66,13 +66,17 @@ function generateRandomRoute() {
             directionsRenderer.setDirections(response);
             const distance = response.routes[0].legs[0].distance.text;
             displayDistance(distance);
+            endLocation = randomPoint;
+            document.getElementById('openInGoogleMaps').style.display = 'block';
         } else {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
         }
     });
-    endLocation = { lat: 52.5200, lng: 13.4050 };
+    const generatedPoint = generateRandomPoint();
+    endLocation = { lat: generatedPoint.lat, lng: generatedPoint.lng };
     document.getElementById('openInGoogleMaps').style.display = 'block';
 }
+
 
 function getRandomLocation(center, radius) {
     const y0 = center.lat;
@@ -133,10 +137,11 @@ function hideLoadingIndicator() {
 }
 function openInMaps() {
     if (!endLocation) {
-        alert('Kein Zielort festgelegt.');
+        alert('Bitte generieren Sie zuerst eine Route.');
         return;
     }
 
+    // Generiere und öffne die Google Maps URL
     const mapsUrl = `https://www.google.com/maps?daddr=${endLocation.lat},${endLocation.lng}`;
     window.open(mapsUrl, '_blank');
 }
