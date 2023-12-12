@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Abenteuer-Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        #map {
+            height: 400px;
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .slider {
+            -webkit-appearance: none; /* Für Webkit-Browser wie Chrome und Safari */
+            appearance: none;        /* Standard CSS-Property für alle anderen Browser */
+            width: 80%;
+            max-width: 400px;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .control-panel {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #routeInfo {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+    <!-- Stelle sicher, dass du hier deinen Google Maps API-Schlüssel einfügst -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzkR9XyYybSt-IpFMeVxBIQejEhGeuL-w&callback=initMap" async defer></script>
+    <script src="script.js"></script> <!-- Dein JavaScript-Code -->
+</head>
+<body>
+    <div id="map"></div>
+    <div class="control-panel">
+        <input type="range" min="1" max="100" value="50" class="slider" id="radiusSlider">
+        <div>Radius: <span id="radiusValue">50</span> km</div>
+        <input type="number" id="customRadius" value="50" min="1" max="100"> km
+        <button id="generateRoute">Route generieren</button>
+    </div>
+    <div id="routeInfo">
+        <p id="routeDistance">Entfernung zum Ziel: </p>
+    </div>
+</body>
+</html>

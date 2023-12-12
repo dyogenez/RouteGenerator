@@ -1,0 +1,91 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #eaeaea;
+}
+
+#map {
+    height: 400px;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.control-panel {
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+
+.control-panel div, 
+.control-panel input, 
+.control-panel button {
+    margin-bottom: 10px;
+}
+
+input[type="number"], 
+input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#routeInfo {
+    font-size: 16px;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Basis-Stile hier (außerhalb der Media Query) */
+
+/* Media Queries für Mobilgeräte */
+@media screen and (max-width: 768px) {
+    body {
+        /* Anpassungen für kleinere Bildschirme */
+    }
+
+    #map {
+        height: 250px; /* Kleinere Kartenhöhe für Mobilgeräte */
+    }
+
+    .control-panel,
+    #routeInfo {
+        width: 95%; /* Breiter für kleinere Bildschirme */
+        margin: 10px auto; /* Zentriert die Elemente */
+    }
+
+    /* Weitere spezifische Anpassungen für Mobilgeräte */
+}
