@@ -129,4 +129,12 @@ function showLoadingIndicator() {
 function hideLoadingIndicator() {
     document.getElementById('loadingIndicator').style.display = 'none';
 }
+function openInMaps() {
+    if (!endLocation) {
+        alert('Bitte generieren Sie zuerst eine Route.');
+        return;
+    }
 
+    const mapsUrl = `https://www.google.com/maps?daddr=${endLocation.lat},${endLocation.lng}`;
+    window.open(mapsUrl, '_blank');
+}
