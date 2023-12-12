@@ -65,13 +65,21 @@ function generateRandomRoute() {
     }, function(response, status) {
         if (status === 'OK') {
             directionsRenderer.setDirections(response);
-            const distance = response.routes[0].legs[0].distance.text;
-            displayDistance(distance);
-        } else {
-            window.alert('Routenanfrage fehlgeschlagen: ' + status);
-        }
-    });
+       // Aktualisiere den Google Maps Link, sobald die Route berechnet ist
+       const googleMapsLink = generateGoogleMapsLink(userLocation, endLocation);
+       document.getElementById('openInMapsButton').href = googleMapsLink;
+       document.getElementById('openInMapsButton').style.display = 'block'; // Zeige den Link an
+   } else {
+       window.alert('Routenanfrage fehlgeschlagen: ' + status);
+   }
+});
 }
+
+function generateGoogleMapsLink(start, end) {
+    // Stellen Sie sicher, dass die Koordinaten korrekt sind
+    return `https://www.google.com/maps/dir/?api=1&origin=${start.lat},${start.lng}&destination=${end.lat},${end.lng}&travelmode=driving`;
+}
+
 
 function getRandomLocation(center, radius) {
     const y0 = center.lat;
@@ -124,19 +132,4 @@ function updateCircleRadius(radiusInKm) {
     }
 }
 
-const googleMapsLink = generateGoogleMapsLink(userLocation, endLocation);
-document.getElementById('openInMapsButton').href = googleMapsLink;
-document.getElementById('openInMapsButton').style.display = 'block'; // Zeige den Link an
 
-
-
-
-
-function generateGoogleMapsLink(start, end) {
-    return `https://www.google.com/maps/dir/?api=1&origin=${start.lat},${start.lng}&destination=${end.lat},${end.lng}&travelmode=driving`;
-}
-
-
-
-// Fügen Sie den Link zu einem Button oder einem anklickbaren Element hinzu
-document.getElementById('openInMapsButton').href = googleMapsLink;
