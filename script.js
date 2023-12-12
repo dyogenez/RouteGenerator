@@ -1,5 +1,5 @@
 let map, userLocation, circle, directionsService, directionsRenderer;
-
+let endLocation;
 function initMap() {
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
@@ -70,6 +70,7 @@ function generateRandomRoute() {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
         }
     });
+    endLocation = { lat: 52.5200, lng: 13.4050 };
     document.getElementById('openInGoogleMaps').style.display = 'block';
 }
 
@@ -139,3 +140,7 @@ function openInMaps() {
     const mapsUrl = `https://www.google.com/maps?daddr=${endLocation.lat},${endLocation.lng}`;
     window.open(mapsUrl, '_blank');
 }
+
+// Stellen Sie sicher, dass der Event Listener korrekt eingerichtet ist
+document.getElementById('generateRoute').addEventListener('click', generateRandomRoute);
+document.getElementById('openInGoogleMaps').addEventListener('click', openInMaps);
