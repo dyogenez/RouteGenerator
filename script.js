@@ -122,3 +122,11 @@ function updateCircleRadius(radiusInKm) {
         circle.setRadius(radiusInKm * 1000);
     }
 }
+function showLoadingIndicator() {
+    document.getElementById('loadingIndicator').style.display = 'block';
+}
+
+function hideLoadingIndicator() {
+    document.getElementById('loadingIndicator').style.display = 'none';
+}
+

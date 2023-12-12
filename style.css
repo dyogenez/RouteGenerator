@@ -73,6 +73,12 @@ button:hover {
 
 /* Media Queries für Mobilgeräte */
 @media screen and (max-width: 768px) {
+    /* Stile für Mobilgeräte */
+    .control-panel {
+        flex-direction: column;
+        align-items: center;
+    }
+}
     body {
         /* Anpassungen für kleinere Bildschirme */
     }
@@ -115,11 +121,9 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Responsives Design */
-@media screen and (max-width: 768px) {
-    /* Anpassungen für kleinere Bildschirme */
-}
 
 
-}
+
+
+
 

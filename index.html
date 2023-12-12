@@ -96,7 +96,9 @@
         <input type="range" min="1" max="100" value="50" class="slider" id="radiusSlider">
         <div>Radius: <span id="radiusValue">50</span> km</div>
         <input type="number" id="customRadius" value="50" min="1" max="100"> km
-        <button id="generateRoute">Route generieren</button>
+        <button aria-label="Route generieren" id="generateRoute">Route generieren</button>
+        <div id="loadingIndicator" style="display:none;">Laden...</div>
+        
     </div>
     <div id="routeInfo">
         <p id="routeDistance">Entfernung zum Ziel: </p>
