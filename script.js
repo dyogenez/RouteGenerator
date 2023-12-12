@@ -70,6 +70,7 @@ function generateRandomRoute() {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
         }
     });
+    document.getElementById('openInGoogleMaps').style.display = 'block';
 }
 
 function getRandomLocation(center, radius) {
