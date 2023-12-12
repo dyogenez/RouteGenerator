@@ -122,3 +122,15 @@ function updateCircleRadius(radiusInKm) {
         circle.setRadius(radiusInKm * 1000);
     }
 }
+
+function generateGoogleMapsLink(start, end) {
+    return `https://www.google.com/maps/dir/?api=1&origin=${start.lat},${start.lng}&destination=${end.lat},${end.lng}&travelmode=driving`;
+}
+
+// Nachdem die Route generiert wurde
+const start = userLocation; // Ihre Startkoordinaten
+const end = randomPoint; // Zielkoordinaten der generierten Route
+const googleMapsLink = generateGoogleMapsLink(start, end);
+
+// Fügen Sie den Link zu einem Button oder einem anklickbaren Element hinzu
+document.getElementById('openInMapsButton').href = googleMapsLink;
