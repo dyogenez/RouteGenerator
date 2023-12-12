@@ -66,15 +66,13 @@ function generateRandomRoute() {
             directionsRenderer.setDirections(response);
             const distance = response.routes[0].legs[0].distance.text;
             displayDistance(distance);
-            endLocation = randomPoint;
+            endLocation = randomPoint; // Korrekte Zuweisung von endLocation
             document.getElementById('openInGoogleMaps').style.display = 'block';
         } else {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
         }
     });
-    const generatedPoint = generateRandomPoint();
-    endLocation = { lat: generatedPoint.lat, lng: generatedPoint.lng };
-    document.getElementById('openInGoogleMaps').style.display = 'block';
+   
 }
 
 
