@@ -74,9 +74,7 @@ function generateRandomRoute() {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
         }
     });
-   
 }
-
 
 function getRandomLocation(center, radius) {
     const y0 = center.lat;
@@ -114,6 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('generateRoute').addEventListener('click', generateRandomRoute);
 });
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const toggleButton = document.getElementById('mode-toggle');
+    toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+});
+// Rest des JavaScript-Codes...
 
 function updateRadiusValue(value) {
     const radiusInKm = parseInt(value);

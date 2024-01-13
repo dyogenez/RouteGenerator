@@ -19,6 +19,15 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
+.button-container {
+    position: absolute; /* Adjust this as needed, could be relative or fixed based on your design */
+    top: 10px; /* Distance from the top of the screen */
+    right: 10px; /* Distance from the right side of the screen */
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: flex-start; /* Align buttons to the start of the flex container */
+    gap: 10px; /* Space between buttons */
+}
 .control-panel {
     text-align: center;
     width: 80%;
@@ -79,9 +88,7 @@ button:hover {
         align-items: center;
     }
 }
-    body {
-        /* Anpassungen für kleinere Bildschirme */
-    }
+  
 
     #map {
         height: 250px; /* Kleinere Kartenhöhe für Mobilgeräte */
