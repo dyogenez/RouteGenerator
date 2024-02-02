@@ -20,10 +20,9 @@ body {
 }
 /* Styles for transport mode buttons */
 .mode-button {
-  /* Bestehende Styles... */
-  padding: 10px 20px;
-  font-size: 16px;
-  transition: background-color 0.3s, transform 0.2s;
+  width: calc(33.33% - 20px); /* Drei Buttons pro Zeile, Abstand berücksichtigen */
+  margin: 10px; /* Fügt Außenabstand hinzu */
+  font-size: 14px; /* Passt die Schriftgröße an */
 }
 
 .transport-mode-buttons {
@@ -107,10 +106,12 @@ button:hover {
 /* Media Queries für Mobilgeräte */
 @media screen and (max-width: 768px) {
   /* Stile für Mobilgeräte */
-  .control-panel, .route-info-panel, .transport-mode-buttons {
-    width: 90%;
-    margin: 10px auto;
-}
+  .transport-mode-buttons {
+      display: flex; /* Oder 'block', je nach bevorzugtem Layout */
+      justify-content: center; /* Zentriert die Buttons, falls 'flex' verwendet wird */
+      width: 100%; /* Passt die Breite an */
+      padding: 10px; /* Fügt etwas Innenabstand hinzu */
+  }
 }
 
 
