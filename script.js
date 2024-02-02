@@ -56,6 +56,7 @@ function generateRandomRoute() {
     // Generiere immer ein neues Ziel, wenn "Route generieren" geklickt wird
     const radiusInKm = parseInt(document.getElementById('customRadius').value);
     endLocation = getRandomLocation(userLocation, radiusInKm * 1000);
+    document.getElementById('transport-mode-buttons').style.display = 'flex';
 
     updateRoute(); // Rufen Sie die Funktion auf, um die Route zu aktualisieren
 }

@@ -20,17 +20,18 @@ body {
 }
 /* Styles for transport mode buttons */
 .mode-button {
-  background-color: #4CAF50;
-  color: white;
+  /* Bestehende Styles... */
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
   font-size: 16px;
-  margin-left: 10px;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
+.transport-mode-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; /* Sorgt dafür, dass die Buttons bei kleinem Bildschirm umgebrochen werden */
+}
 .mode-button:hover {
   background-color: #45a049;
 }
@@ -106,16 +107,17 @@ button:hover {
 /* Media Queries für Mobilgeräte */
 @media screen and (max-width: 768px) {
   /* Stile für Mobilgeräte */
-  .control-panel {
-      flex-direction: column;
-      align-items: center;
-  }
+  .control-panel, .route-info-panel, .transport-mode-buttons {
+    width: 90%;
+    margin: 10px auto;
+}
 }
 
 
-  #map {
-      height: 250px; /* Kleinere Kartenhöhe für Mobilgeräte */
-  }
+#map {
+  width: 90%; /* Breiter für kleinere Bildschirme */
+  height: 250px; /* Kleinere Kartenhöhe für Mobilgeräte */
+}
 
   .control-panel,
   #routeInfo {
