@@ -20,20 +20,43 @@ body {
 }
 /* Styles for transport mode buttons */
 .mode-button {
-  width: calc(33.33% - 20px); /* Drei Buttons pro Zeile, Abstand berücksichtigen */
-  margin: 10px; /* Fügt Außenabstand hinzu */
-  font-size: 14px; /* Passt die Schriftgröße an */
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px; /* Kleiner für mobile Geräte */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .transport-mode-buttons {
-  display: flex;
+  display: none; /* Versteckt die Buttons standardmäßig */
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
-  flex-wrap: wrap; /* Sorgt dafür, dass die Buttons bei kleinem Bildschirm umgebrochen werden */
+  margin-top: 10px;
 }
 .mode-button:hover {
   background-color: #45a049;
+  transform: scale(1.05);
 }
+
+
+@media screen and (max-width: 768px) {
+  .transport-mode-buttons {
+      width: 100%;
+      margin: 0 auto;
+      padding: 10px;
+  }
+
+  .mode-button {
+      width: 100%; /* Volle Breite für bessere Klickbarkeit */
+      margin: 5px 0; /* Abstand zwischen den Buttons */
+      padding: 12px 20px; /* Größerer Padding für bessere Klickbarkeit */
+  }
+}
+
 
 .mode-button:first-child {
   margin-left: 0;
@@ -104,15 +127,14 @@ button:hover {
 /* Basis-Stile hier (außerhalb der Media Query) */
 
 /* Media Queries für Mobilgeräte */
-@media screen and (max-width: 768px) {
-  /* Stile für Mobilgeräte */
-  .transport-mode-buttons {
-      display: flex; /* Oder 'block', je nach bevorzugtem Layout */
-      justify-content: center; /* Zentriert die Buttons, falls 'flex' verwendet wird */
-      width: 100%; /* Passt die Breite an */
-      padding: 10px; /* Fügt etwas Innenabstand hinzu */
-  }
+.transport-mode-buttons {
+  display: none; /* Versteckt die Buttons standardmäßig */
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
+
 
 
 #map {
