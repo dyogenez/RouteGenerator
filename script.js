@@ -129,10 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('modeBicycling').addEventListener('click', function() { setSelectedMode('BICYCLING'); });
 });
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (Rest des Event Listener Codes)
+
     const toggleButton = document.getElementById('mode-toggle');
     toggleButton.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
+        document.body.classList.toggle('light-mode');
     });
 });
 // Rest des JavaScript-Codes...
