@@ -1,5 +1,6 @@
 let map, userLocation, circle, directionsService, directionsRenderer;
-let endLocation;
+let endLocation; // Dies bleibt das Ziel für die Route
+let selectedMode = 'DRIVING';
 function initMap() {
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
@@ -45,30 +46,35 @@ function handleLocationError(browserHasGeolocation, pos) {
     // Hier sollte die Fehlerbehandlung für den Standort implementiert werden
 }
 
+
 function generateRandomRoute() {
     if (!userLocation) {
         alert('Standort nicht verfügbar. Bitte erlauben Sie den Zugriff auf Ihren Standort.');
         return;
     }
 
+    // Generiere immer ein neues Ziel, wenn "Route generieren" geklickt wird
     const radiusInKm = parseInt(document.getElementById('customRadius').value);
-    const randomPoint = getRandomLocation(userLocation, radiusInKm * 1000);
-    document.getElementById('generateRoute').addEventListener('click', generateRandomRoute);
-    document.getElementById('openInGoogleMaps').addEventListener('click', openInMaps);
+    endLocation = getRandomLocation(userLocation, radiusInKm * 1000);
 
-    circle.setRadius(radiusInKm * 1000);
+    updateRoute(); // Rufen Sie die Funktion auf, um die Route zu aktualisieren
+}
+
+
+
+function updateRoute() {
     circle.setCenter(userLocation);
+    circle.setRadius(parseInt(document.getElementById('customRadius').value) * 1000);
 
     directionsService.route({
         origin: userLocation,
-        destination: randomPoint,
-        travelMode: google.maps.TravelMode.DRIVING
+        destination: endLocation,
+        travelMode: google.maps.TravelMode[selectedMode]
     }, function(response, status) {
         if (status === 'OK') {
             directionsRenderer.setDirections(response);
             const distance = response.routes[0].legs[0].distance.text;
             displayDistance(distance);
-            endLocation = randomPoint; // Korrekte Zuweisung von endLocation
             document.getElementById('openInGoogleMaps').style.display = 'block';
         } else {
             window.alert('Routenanfrage fehlgeschlagen: ' + status);
@@ -76,6 +82,12 @@ function generateRandomRoute() {
     });
 }
 
+function setSelectedMode(mode) {
+    selectedMode = mode;
+    if (endLocation) { // Wenn bereits ein Ziel festgelegt wurde, aktualisieren Sie die Route
+        updateRoute();
+    }
+}
 function getRandomLocation(center, radius) {
     const y0 = center.lat;
     const x0 = center.lng;
@@ -101,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const slider = document.getElementById('radiusSlider');
     const customRadiusInput = document.getElementById('customRadius');
     const radiusValueDisplay = document.getElementById('radiusValue');
+    document.getElementById('openInGoogleMaps').addEventListener('click', openInMaps);
 
     slider.addEventListener('input', function() {
         updateRadiusValue(this.value);
@@ -111,6 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('generateRoute').addEventListener('click', generateRandomRoute);
+     document.getElementById('modeDriving').addEventListener('click', function() { setSelectedMode('DRIVING'); });
+    document.getElementById('modeWalking').addEventListener('click', function() { setSelectedMode('WALKING'); });
+    document.getElementById('modeBicycling').addEventListener('click', function() { setSelectedMode('BICYCLING'); });
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -147,8 +163,8 @@ function openInMaps() {
         return;
     }
 
-    // Generiere und öffne die Google Maps URL
-    const mapsUrl = `https://www.google.com/maps?daddr=${endLocation.lat},${endLocation.lng}`;
+    // Generiere und öffne die Google Maps URL mit dem Ziel (endLocation)
+    const mapsUrl = `https://www.google.com/maps?daddr=${endLocation.lat},${endLocation.lng}&dirflg=${selectedMode === 'DRIVING' ? 'd' : selectedMode === 'WALKING' ? 'w' : 'b'}`;
     window.open(mapsUrl, '_blank');
 }
 

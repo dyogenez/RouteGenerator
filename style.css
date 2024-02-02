@@ -18,6 +18,29 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
+/* Styles for transport mode buttons */
+.mode-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.mode-button:hover {
+  background-color: #45a049;
+}
+
+.mode-button:first-child {
+  margin-left: 0;
+}
+
+/* Rest of your existing CSS... */
+
 
 .button-container {
   position: absolute; /* Adjust this as needed, could be relative or fixed based on your design */
